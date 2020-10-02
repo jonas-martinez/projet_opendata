@@ -50,3 +50,7 @@ Vérifications que les données peuvent être combinées (années similaires)
 Extraction des données souhaitées : tri des champs à garder
 Mise en place architecture d'accueil de la base de données : nécessite la gestion de données spatiales (PostGis)
 Vérification de la lecture des données spatiales
+
+### Récap Semaine 3 
+
+Création du squelette du site web avec affichage de la map. Finalisation du squelette de la base de données. Regroupage de toutes les données sur une meme BDD.
