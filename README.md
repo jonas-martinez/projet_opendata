@@ -6,6 +6,14 @@ Ce projet à pour but de sensibiliser les utilisateurs aux informations démogra
 
 Ces informations proviennent de l'INSEE qui fournit des données open-source. Dans le cadre de ce projet nous utiliserons des données démographiques (nombre d'habitants, évolution de ce dernier, etc...) ainsi que différentes données immobilières (nombre de construction en cours, développement urbain, variation sur le prix de l'immobilier, etc...).
 
+## Installation de l'environnement de développement
+
+* Installer PostgreSQL et pgAdmin pour gérer la base de données
+* Installer Apache pour héberger le site web en local
+* Installer l'extension PostGIS pour permettre la prise en charge des données spatiales
+* Exécuter les scripts SQL
+
+
 ### Backlog
 
 | ID 	| Description                                                                                                              	| Spécificités Techniques                                                                                    	|
