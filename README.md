@@ -23,3 +23,22 @@ Ces informations proviennent de l'INSEE qui fournit des données open-source. Da
 | 7  	| En tant qu'utilisateur je veux pouvoir connaitre le type de constructions en cours                                       	| Affichage d'une info-bulle qui affiche les informations de la ville                                        	|
 | 8  	| En tant qu'utilisateur je veux pouvoir connaitre le prix de l'immobilier par ville                                       	| Affichage d'une info-bulle qui affiche les informations de la ville                                        	|
 | 9  	| En tant qu'utilisateur je veux pouvoir visionner des statistiques générales d'une ville                                  	| Affichage d'une info-bulle qui affiche les informations de la ville                                        	|
+
+
+## Récap
+
+### Récap Semaine 1
+
+Mise en place des outils de communication : discord
+Réflexion sur le sujet : objectifs principaux
+Création projet git
+Début des recherches de sources de données : problème avec données géométriques
+
+### Récap Semaine 2
+
+Globalement manque de temps (journées de cours très chargées) ou décalés selon les parcours
+Semaine exclusivement dédiée à l’acquisition de données
+Vérifications que les données peuvent être combinées (années similaires)
+Extraction des données souhaitées : tri des champs à garder
+Mise en place architecture d'accueil de la base de données : nécessite la gestion de données spatiales (PostGis)
+Vérification de la lecture des données spatiales
