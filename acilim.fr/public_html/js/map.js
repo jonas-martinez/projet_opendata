@@ -1,37 +1,23 @@
-var map; //complex object of type OpenLayers.Map
 
+// Fonction d'initialisation de la carte
 function init() {
-    map = new OpenLayers.Map("map", {
-        controls: [
-            new OpenLayers.Control.Navigation(),
-            new OpenLayers.Control.PanZoomBar(),
-            new OpenLayers.Control.LayerSwitcher(),
-            new OpenLayers.Control.Attribution()],
-        units: 'm',
-        projection: new OpenLayers.Projection("EPSG:900913"),
-        displayProjection: new OpenLayers.Projection("EPSG:4326")
-    });
 
-    // Define the map layer
-    // Here we use a predefined layer that will be kept up to date with URL changes
-    layerMapnik = new OpenLayers.Layer.OSM.Mapnik("Mapnik");
-    map.addLayer(layerMapnik);
-    layerCycleMap = new OpenLayers.Layer.OSM.CycleMap("CycleMap");
-    map.addLayer(layerCycleMap);
-    layerMarkers = new OpenLayers.Layer.Markers("Markers");
-    map.addLayer(layerMarkers);
+    // On initialise la latitude et la longitude de Paris (centre de la carte)
+    var lat = 48.852969;
+    var lon = 2.349903;
+    var macarte = null;
 
-    // Add a Layer with Marker
-    var size = new OpenLayers.Size(21, 25);
-    var offset = new OpenLayers.Pixel(-(size.w / 2), -size.h);
-    var icon = new OpenLayers.Icon('https://www.openstreetmap.org/openlayers/img/marker.png', size, offset);
-    layerMarkers.addMarker(new OpenLayers.Marker(lonLat, icon));
 
-    // Start position for the map (hardcoded here for simplicity,
-    // but maybe you want to get this from the URL params)
-    var lat = 47.496792;
-    var lon = 7.571726;
-    var zoom = 13;
-    var lonLat = new OpenLayers.LonLat(lon, lat).transform(new OpenLayers.Projection("EPSG:4326"), map.getProjectionObject());
-    map.setCenter(lonLat, zoom);
+    // Créer l'objet "macarte" et l'insèrer dans l'élément HTML qui a l'ID "map"
+    macarte = L.map('map').setView([lat, lon], 7);
+    // Leaflet ne récupère pas les cartes (tiles) sur un serveur par défaut. Nous devons lui préciser où nous souhaitons les récupérer. Ici, openstreetmap.fr
+    L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+        // Il est toujours bien de laisser le lien vers la source des données
+        attribution: 'données © <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a>',
+        minZoom: 1,
+        maxZoom: 20
+    }).addTo(macarte);
+
+    var marker = L.marker([lat, lon]).addTo(macarte);
+
 }
