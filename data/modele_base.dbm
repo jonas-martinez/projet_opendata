@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+         Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="0.9.1-beta" last-position="126,44" last-zoom="1"
+	 default-schema="public" default-owner="postgres">
+<database name="acilim">
+</database>
+
+<schema name="public" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<table name="communes">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="642" y="312"/>
+	<column name="code_insee" not-null="true">
+		<type name="varchar" length="5"/>
+	</column>
+	<column name="nom_commune" not-null="true">
+		<type name="varchar" length="254"/>
+	</column>
+	<column name="contours" not-null="true">
+		<type name="geometry" length="0" spatial-type="GEOMETRY" variation="0" srid="2154"/>
+	</column>
+</table>
+
+<table name="population_annee">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="700" y="440"/>
+	<column name="code_insee" not-null="true">
+		<type name="varchar" length="5"/>
+	</column>
+	<column name="annee" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="population">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="population_annee_pk" type="pk-constr" table="public.population_annee">
+		<columns names="code_insee,annee" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="prixm2">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="260" y="300"/>
+	<column name="code_insee" not-null="true">
+		<type name="varchar" length="0"/>
+	</column>
+	<column name="prixm2">
+		<type name="float" length="0"/>
+	</column>
+	<column name="annee" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="prixm2_pk" type="pk-constr" table="public.prixm2">
+		<columns names="code_insee,annee" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="constructions">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="640" y="160"/>
+	<column name="code_insee" not-null="true">
+		<type name="varchar" length="5"/>
+	</column>
+	<column name="nombre_constructions" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="constructions_pk" type="pk-constr" table="public.constructions">
+		<columns names="code_insee,nombre_constructions" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<extension name="postgis" cur-version="3.0.1">
+	<schema name="public"/>
+</extension>
+
+<extension name="postgis_topology" cur-version="3.0.1">
+	<schema name="public"/>
+</extension>
+
+<constraint name="code_insee_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="CASCADE" ref-table="public.communes" table="public.population_annee">
+	<columns names="code_insee" ref-type="src-columns"/>
+	<columns names="code_insee" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="code_insee_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="CASCADE" ref-table="public.communes" table="public.prixm2">
+	<columns names="code_insee" ref-type="src-columns"/>
+	<columns names="code_insee" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="code_insee_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="CASCADE" ref-table="public.communes" table="public.constructions">
+	<columns names="code_insee" ref-type="src-columns"/>
+	<columns names="code_insee" ref-type="dst-columns"/>
+</constraint>
+
+<relationship name="rel_population_annee_communes" type="relfk"
+	 src-table="public.population_annee"
+	 dst-table="public.communes"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_prixm2_communes" type="relfk"
+	 src-table="public.prixm2"
+	 dst-table="public.communes"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_constructions_communes" type="relfk"
+	 src-table="public.constructions"
+	 dst-table="public.communes"
+	 src-required="false" dst-required="false"/>
+
+</dbmodel>
