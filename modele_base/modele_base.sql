@@ -19,7 +19,9 @@
 CREATE TABLE public.communes(
 	code_insee varchar(5) NOT NULL,
 	nom_commune varchar(254) NOT NULL,
-	contours geometry(GEOMETRY, 2154) NOT NULL
+	contours geometry(GEOMETRY, 2154) NOT NULL,
+	CONSTRAINT communes_pk PRIMARY KEY (code_insee)
+
 );
 -- ddl-end --
 ALTER TABLE public.communes OWNER TO postgres;
@@ -61,6 +63,20 @@ CREATE TABLE public.constructions(
 );
 -- ddl-end --
 ALTER TABLE public.constructions OWNER TO postgres;
+-- ddl-end --
+
+-- object: postgis | type: EXTENSION --
+-- DROP EXTENSION IF EXISTS postgis CASCADE;
+CREATE EXTENSION postgis
+      WITH SCHEMA public
+      VERSION '3.0.1';
+-- ddl-end --
+
+-- object: postgis_topology | type: EXTENSION --
+-- DROP EXTENSION IF EXISTS postgis_topology CASCADE;
+CREATE EXTENSION postgis_topology
+      WITH SCHEMA public
+      VERSION '3.0.1';
 -- ddl-end --
 
 -- object: code_insee_fk | type: CONSTRAINT --

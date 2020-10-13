@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.1-beta" last-position="126,44" last-zoom="1"
+<dbmodel pgmodeler-ver="0.9.1-beta" last-position="0,0" last-zoom="1"
 	 default-schema="public" default-owner="postgres">
 <database name="acilim">
 </database>
@@ -14,7 +14,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="communes">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="642" y="312"/>
+	<position x="640" y="300"/>
 	<column name="code_insee" not-null="true">
 		<type name="varchar" length="5"/>
 	</column>
@@ -24,12 +24,15 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="contours" not-null="true">
 		<type name="geometry" length="0" spatial-type="GEOMETRY" variation="0" srid="2154"/>
 	</column>
+	<constraint name="communes_pk" type="pk-constr" table="public.communes">
+		<columns names="code_insee" ref-type="src-columns"/>
+	</constraint>
 </table>
 
 <table name="population_annee">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="700" y="440"/>
+	<position x="240" y="440"/>
 	<column name="code_insee" not-null="true">
 		<type name="varchar" length="5"/>
 	</column>
@@ -47,7 +50,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="prixm2">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="260" y="300"/>
+	<position x="280" y="180"/>
 	<column name="code_insee" not-null="true">
 		<type name="varchar" length="0"/>
 	</column>
