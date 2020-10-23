@@ -1,0 +1,15 @@
+#map {
+    float: left;
+    /* la carte DOIT avoir une hauteur sinon elle n'apparaît pas */
+    height: 600px;
+    width: 74%;
+    margin: 5px;
+}
+
+#info {
+    float: right;
+    width: 24%;
+    height: 600px;
+    background-color: beige;
+    margin-right: 5px;
+}
