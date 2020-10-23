@@ -1,8 +1,6 @@
 var start_location = [48.852969,2.349903];
 function init() {
     
-    setInformations('la Rochelle', 1998, 10000, 250, 69);
-
     // On initialise la latitude et la longitude de Paris (centre de la carte)
     
     var start_zoom = 9
@@ -19,7 +17,6 @@ function init() {
         new_location = window.location.search.replace("?","").replace("lat=","").replace("long=","").split("&")
         start_location=[new_location[0],new_location[1].replace("?","")]
     }
-    console.log(start_location);
 
     // Créer l'objet "macarte" et l'insèrer dans l'élément HTML qui a l'ID "map"
     macarte = L.map('map').setView(start_location,start_zoom);
@@ -67,6 +64,7 @@ function refreshMap(map){
                 $.each(result,function(_, data){
                     commune = JSON.parse(data[1])
                     commune.INSEE = data[2]
+                    commune.nom=data[0]
                     //console.log(commune)
                     oneCommune = L.geoJSON(commune,{
                         style:function(feature){
@@ -107,15 +105,20 @@ function communeReset(e){
 
 function communeClick(e){
     let insee = e.target.feature.geometry.INSEE
+    var nom_ville = e.target.feature.geometry.nom
+    // Récupérer l'année choisis par l'utilisateur
     var annee=2019
     let request = "select prixm2, population from prixm2 pr, pop_annee as pop where pr.code_insee=\'"+insee+"\' and pop.code_insee=\'"+insee+"\' and pr.annee="+annee+" and pop.annee="+annee+";";
-    console.log(request)
     $.post("php/request.php",
         {"request":request},
         function(data){
             let result = JSON.parse(data)
             // On modifie le corps html pour mettre à jours la div concernée
-            console.log(result)
+            let nbHabitants = result[0][1]
+            let prix = result[0][0]+" €"
+            document.getElementById("nomVille").innerHTML=nom_ville
+            document.getElementById("habitantsParAnnee").lastElementChild.innerHTML=nbHabitants
+            document.getElementById("prixMetreCarre").lastElementChild.innerHTML=prix
         }
     )
 }
