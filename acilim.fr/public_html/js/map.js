@@ -1,19 +1,25 @@
+var start_location = [48.852969,2.349903]
+
 function init() {
     
+    setInformations('la Rochelle', 1998, 10000, 250, 69);
+
     // On initialise la latitude et la longitude de Paris (centre de la carte)
-    var start_location = [48.852969,2.349903]
     var start_zoom = 9
     var macarte = null;
-    // On récupère la localisation de l'utilisateur s'il accepte pour qu'elle soit le centre de la carte
+    // On récupère la localisation de l'utilisateur s'il accepte pour qu'elle soit le centre de la carte 
     // NON FONCTIONNEL
     if(navigator.geolocation){
         function setPosition(pos){
-            //console.log(start_location);
+            // console.log(start_location);
             start_location[0]=pos.coords.latitude;
             start_location[1]=pos.coords.longitude;
+            // console.log(start_location);
+            return [pos.coords.latitude, pos.coords.longitude]
         }
         navigator.geolocation.getCurrentPosition(setPosition)
     }
+    console.log(start_location);
 
     // Créer l'objet "macarte" et l'insèrer dans l'élément HTML qui a l'ID "map"
     macarte = L.map('map').setView(start_location,start_zoom);
@@ -109,4 +115,12 @@ function communeClick(e){
     let request = "select ";
     // AJAX REQUETE
     // MODIFIER POPUP ? 
+}
+
+function setInformations(name, year, pop, priceM2, constructions) {
+    $("#info").find("#nomVille").innerHTML = name;
+    $("#info").find("#year").innerHTML = year;
+    $("#info").find("#habitantsParAnnee").find("p").innerHTML = pop;
+    $("#info").find("#prixMetreCarre").find("p").innerHTML = priceM2;
+    $("#info").find("#nbConstruction").find("p").innerHTML = constructions;
 }
