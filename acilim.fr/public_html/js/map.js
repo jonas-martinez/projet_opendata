@@ -1,35 +1,19 @@
-<<<<<<< HEAD
 var start_location = [48.852969,2.349903];
-=======
-var start_location = [48.852969,2.349903]
-
->>>>>>> 605aad779df39d9d3f1cd709f441e0c732d56af1
 function init() {
     
     setInformations('la Rochelle', 1998, 10000, 250, 69);
 
     // On initialise la latitude et la longitude de Paris (centre de la carte)
-<<<<<<< HEAD
     
-=======
->>>>>>> 605aad779df39d9d3f1cd709f441e0c732d56af1
     var start_zoom = 9
     var macarte = null;
     // On récupère la localisation de l'utilisateur s'il accepte pour qu'elle soit le centre de la carte 
     // NON FONCTIONNEL
     if(navigator.geolocation){
         function setPosition(pos){
-<<<<<<< HEAD
             if (!window.location.href.includes("?")){
                 window.location.href+="?lat="+pos.coords.latitude+"&long="+pos.coords.longitude
             }
-=======
-            // console.log(start_location);
-            start_location[0]=pos.coords.latitude;
-            start_location[1]=pos.coords.longitude;
-            // console.log(start_location);
-            return [pos.coords.latitude, pos.coords.longitude]
->>>>>>> 605aad779df39d9d3f1cd709f441e0c732d56af1
         }
         navigator.geolocation.getCurrentPosition(setPosition)
         new_location = window.location.search.replace("?","").replace("lat=","").replace("long=","").split("&")
