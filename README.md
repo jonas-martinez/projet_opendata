@@ -1,5 +1,9 @@
 # **ACILIM** - Analyse des Constructions en cours et Influence sur L'Immobilier et la Mobilité
 
+Lien Trello : [Trello](https://trello.com/invite/b/5FKP2blz/b4f6265bdedbf69f21ad9fabc16b77da/tableau-agile)
+
+Lien Drive pour les données trop lourdes : [Drive](https://drive.google.com/drive/folders/11wTeuOJwkFSQOCjiP1Px05d4_7G0MCyM?usp=sharing)
+
 ## Présentation
 
 Ce projet à pour but de sensibiliser les utilisateurs aux informations démographiques et immobilières de leur région via une carte web permettant de visualiser ces informations.
