@@ -10,11 +10,9 @@
                 $result = $conn->prepare($request);
                 $result -> execute();
                 while($data = $result->fetch()){
-                    array_push($list_communes,[$data[0],$data[1]]);
+                    array_push($list_communes,[$data[0],$data[1],$data[2]]);
                 }
                 echo(json_encode($list_communes));
-
-                
             }    
         }catch(PDOException $e){
             var_dump($e->getMessage());
