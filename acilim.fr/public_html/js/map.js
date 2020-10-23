@@ -1,18 +1,21 @@
+var start_location = [48.852969,2.349903];
 function init() {
     
     // On initialise la latitude et la longitude de Paris (centre de la carte)
-    var start_location = [48.852969,2.349903]
+    
     var start_zoom = 9
     var macarte = null;
     // On récupère la localisation de l'utilisateur s'il accepte pour qu'elle soit le centre de la carte
     // NON FONCTIONNEL
     if(navigator.geolocation){
         function setPosition(pos){
-            //console.log(start_location);
-            start_location[0]=pos.coords.latitude;
-            start_location[1]=pos.coords.longitude;
+            if (!window.location.href.includes("?")){
+                window.location.href+="?lat="+pos.coords.latitude+"&long="+pos.coords.longitude
+            }
         }
         navigator.geolocation.getCurrentPosition(setPosition)
+        new_location = window.location.search.replace("?","").replace("lat=","").replace("long=","").split("&")
+        start_location=[new_location[0],new_location[1].replace("?","")]
     }
 
     // Créer l'objet "macarte" et l'insèrer dans l'élément HTML qui a l'ID "map"
@@ -52,14 +55,17 @@ function refreshMap(map){
     if (map.getZoom()>8){
         var bounds = map.getBounds();
         var coord_map = [[bounds._southWest.lat,bounds._northEast.lng],[bounds._northEast.lat,bounds._northEast.lng],[bounds._northEast.lat,bounds._southWest.lng],[bounds._southWest.lat,bounds._southWest.lng]];
-        var request = "select nom_commune, ST_AsGeoJSON(contours, 9, 4) from communes where ST_Intersects(ST_SetSRID(contours,4326)::geography, St_GeomFromText(\'POLYGON(("+coord_map[0][1]+" "+coord_map[0][0]+","+coord_map[1][1]+" "+coord_map[1][0]+","+coord_map[2][1]+" "+coord_map[2][0]+","+coord_map[3][1]+" "+coord_map[3][0]+","+coord_map[0][1]+" "+coord_map[0][0]+"))\'));";
+        var request = "select nom_commune, ST_AsGeoJSON(contours, 9, 4), code_insee from communes where ST_Intersects(ST_SetSRID(contours,4326)::geography, St_GeomFromText(\'POLYGON(("+coord_map[0][1]+" "+coord_map[0][0]+","+coord_map[1][1]+" "+coord_map[1][0]+","+coord_map[2][1]+" "+coord_map[2][0]+","+coord_map[3][1]+" "+coord_map[3][0]+","+coord_map[0][1]+" "+coord_map[0][0]+"))\'));";
         $.post("php/request.php",
             {'request':request}, 
             function(data){
                 result = JSON.parse(data);
                 communes=[];
                 $.each(result,function(_, data){
-                    oneCommune = L.geoJSON(JSON.parse(data[1]),{
+                    commune = JSON.parse(data[1])
+                    commune.INSEE = data[2]
+                    //console.log(commune)
+                    oneCommune = L.geoJSON(commune,{
                         style:function(feature){
                             return{
                                 fillOpacity:0,
@@ -97,16 +103,16 @@ function communeReset(e){
 }
 
 function communeClick(e){
-    //console.log(e.target.feature.geometry.coordinates[0]);
-    let coordinates =e.target.feature.geometry.coordinates[0][0]
-    let length_array=coordinates.length;
-    let texte="ST_GeomFromText(\'POLYGON(("+coordinates[0][0]+" "+coordinates[0][1];
-    for(let i=1;i<length_array;i++){
-        texte+=","+coordinates[i][0]+" "+coordinates[i][1];
-    }
-    texte+="))\')";
-    console.log(texte);
-    let request = "select ";
-    // AJAX REQUETE
-    // MODIFIER POPUP ? 
+    let insee = e.target.feature.geometry.INSEE
+    var annee=2019
+    let request = "select prixm2, population from prixm2 pr, pop_annee as pop where pr.code_insee=\'"+insee+"\' and pop.code_insee=\'"+insee+"\' and pr.annee="+annee+" and pop.annee="+annee+";";
+    console.log(request)
+    $.post("php/request.php",
+        {"request":request},
+        function(data){
+            let result = JSON.parse(data)
+            // On modifie le corps html pour mettre à jours la div concernée
+            console.log(result)
+        }
+    )
 }
