@@ -17,6 +17,7 @@ function init() {
             navigator.geolocation.getCurrentPosition(setPosition)
             new_location = window.location.search.replace("?","").replace("lat=","").replace("long=","").split("&")
             start_location=[new_location[0],new_location[1].replace("?","")]
+            L.map('map').setView(start_location)
         }
     }
 
@@ -118,21 +119,72 @@ function communeClick(e){
     document.getElementById("prixMetreCarre").lastElementChild.innerHTML=""
     document.getElementById("nbConstruction").lastElementChild.innerHTML=""
     // Il faut récupérer l'année choisis par l'utilisateur
-    var annee=2019
-    let request = "select prixm2, population, nombre_constructions from prixm2 pr, population_annee pop, constructions c where pr.code_insee=\'"+insee+"\' and pop.code_insee=\'"+insee+"\' and c.code_insee=\'"+insee+"\' and pr.annee="+annee+" and pop.annee="+annee+";";
+    
+    let request = "select pr.annee, prixm2, population, c.nombre_constructions from prixm2 pr, population_annee pop, constructions c where pr.code_insee=\'"+insee+"\' and pop.code_insee=\'"+insee+"\' and c.code_insee=\'"+insee+"\' and pr.annee=pop.annee;"
+    // and pr.annee="+annee+" and pop.annee="+annee+";";
     $.post("php/request.php",
         {"request":request},
         function(data){
             let result = JSON.parse(data)
-            console.log(result)
             // On modifie le corps html pour mettre à jours la div concernée
-            var nbHabitants = result[0][1]
-            let prix = result[0][0]+" €"
-            let constructions = result[0][2]
+            var nbHabitants = result[result.length-1][2]
+            if (result[result.length-1][1]!=null){
+                var prix = result[result.length-1][1]+" €"
+            }else{
+                var prix = "Inconnue"
+            }
+            if (result[result.length-1][3]!=null){
+                var constructions = result[result.length-1][3]
+            }else{
+                var constructions = "Inconnue"
+            }
+            let annee=result[result.length-1][0]
             document.getElementById("nomVille").innerHTML=nom_ville
             document.getElementById("habitantsParAnnee").lastElementChild.innerHTML=nbHabitants
             document.getElementById("prixMetreCarre").lastElementChild.innerHTML=prix
             document.getElementById("nbConstruction").lastElementChild.innerHTML=constructions
+            var labels=[]
+            var prices = []
+            result.forEach(function(item,index){
+                if(item[1]!=null){
+                    labels.push(item[0])
+                    prices.push(item[1])
+                }
+            })
+            console.log(labels,prices)
+            setPriceChart(labels,prices)
         }
     )
+}
+
+
+function setPriceChart(labels,data){
+    var ctx = document.getElementById('priceChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: "Courbe des prix de l'immobilier",
+                data: data,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        }
+    });
 }
