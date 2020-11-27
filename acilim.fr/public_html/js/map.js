@@ -120,7 +120,7 @@ function communeClick(e){
     document.getElementById("nbConstruction").lastElementChild.innerHTML=""
     // Il faut récupérer l'année choisis par l'utilisateur
     
-    let request = "select pr.annee, prixm2, population, c.nombre_constructions from prixm2 pr, population_annee pop, constructions c where pr.code_insee=\'"+insee+"\' and pop.code_insee=\'"+insee+"\' and c.code_insee=\'"+insee+"\' and pr.annee=pop.annee;"
+    let request = "select pr.annee, prixm2, population, c.nombre_constructions from prixm2 pr, population_annee pop, constructions c where pr.code_insee=\'"+insee+"\' and pop.code_insee=\'"+insee+"\' and c.code_insee=\'"+insee+"\' and pr.annee=pop.annee order by pr.annee asc;"
     // and pr.annee="+annee+" and pop.annee="+annee+";";
     $.post("php/request.php",
         {"request":request},
