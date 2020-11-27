@@ -127,39 +127,47 @@ function communeClick(e){
         function(data){
             let result = JSON.parse(data)
             // On modifie le corps html pour mettre à jours la div concernée
-            var nbHabitants = result[result.length-1][2]
-            if (result[result.length-1][1]!=null){
+
+            if ( result[result.length-1] != null && result[result.length-1][2] != null){
+                var nbHabitants = result[result.length-1][2]
+            }else{
+                var nbHabitants = "Inconnu"
+            }
+            if (result[result.length-1] != null && result[result.length-1][1]!=null){
                 var prix = result[result.length-1][1]+" €"
             }else{
-                var prix = "Inconnue"
+                var prix = "Inconnu"
             }
-            if (result[result.length-1][3]!=null){
+            if (result[result.length-1] != null && result[result.length-1][3]!=null){
                 var constructions = result[result.length-1][3]
             }else{
-                var constructions = "Inconnue"
+                var constructions = "Inconnu"
             }
-            let annee=result[result.length-1][0]
+            if (result[result.length-1]!=null && result[result.length-1][0]!=null)
+            {
+                let annee=result[result.length-1][0]
+            }
             document.getElementById("nomVille").innerHTML=nom_ville
-            document.getElementById("habitantsParAnnee").lastElementChild.innerHTML=nbHabitants
-            document.getElementById("prixMetreCarre").lastElementChild.innerHTML=prix
             document.getElementById("nbConstruction").lastElementChild.innerHTML=constructions
             var labels=[]
             var prices = []
+            var population = []
             result.forEach(function(item,index){
                 if(item[1]!=null){
                     labels.push(item[0])
                     prices.push(item[1])
+                    population.push(item[2])
                 }
             })
-            console.log(labels,prices)
-            setPriceChart(labels,prices)
+            setChart(labels,prices,"priceChart")
+            setChart(labels,population,"populationChart")
         }
     )
 }
 
 
-function setPriceChart(labels,data){
-    var ctx = document.getElementById('priceChart').getContext('2d');
+function setChart(labels,data, element){
+    var ctx = document.getElementById(element).getContext('2d');
     var myChart = new Chart(ctx, {
         type: 'line',
         data: {
