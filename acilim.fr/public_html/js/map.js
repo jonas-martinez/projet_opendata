@@ -112,6 +112,9 @@ function communeReset(e){
 }
 
 function communeClick(e){
+    document.getElementById('info').style.visibility = 'visible';
+    document.getElementById('map').style.width = "77vw";
+
     var nom_ville = e.target.feature.geometry.nom
     var insee = e.target.feature.geometry.INSEE
     document.getElementById("nomVille").innerHTML=nom_ville

@@ -4,7 +4,7 @@
     $request = $_POST["request"];
     if ($request){
         try{
-            $conn = new PDO('pgsql:host=localhost;port=5432;dbname=acilim;','postgres','admin');
+            $conn = new PDO('pgsql:host=localhost;port=5432;dbname=acilim;','postgres','martinez');
             if ($conn){
                 $request=$request;
                 $result = $conn->prepare($request);
