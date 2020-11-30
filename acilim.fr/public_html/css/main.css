@@ -22,3 +22,7 @@ html, body {
 
     visibility: hidden;
 }
+
+.margin-5 {
+    margin: 5px;
+}
