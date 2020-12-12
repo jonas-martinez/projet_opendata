@@ -26,7 +26,7 @@ Ce projet fournit les fonctionnalités suivantes:
   - Visualisation du nombre d'habitant dans une ville;
 - Visualisation des contours des villes et des communes sur une carte;
 - Visualisation des statistiques générales d'une ville;
-- Recherche et sélection d'une ville;
+- Sélection d'une ville;
 
 ## Technologies
 
