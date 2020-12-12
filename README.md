@@ -1,60 +1,50 @@
-# **ACILIM** - Analyse des Constructions en cours et Influence sur L'Immobilier et la Mobilité
+# **ACILIM** - Analyse des Constructions en cours et Influence sur l'Immobilier et la Mobilité
 
-Lien Trello : [Trello](https://trello.com/invite/b/5FKP2blz/b4f6265bdedbf69f21ad9fabc16b77da/tableau-agile)
+## Introdcution
 
-Lien Drive pour les données trop lourdes : [Drive](https://drive.google.com/drive/folders/11wTeuOJwkFSQOCjiP1Px05d4_7G0MCyM?usp=sharing)
+Ce projet d'études à pour but de sensibiliser les utilisateurs aux informations démographiques et immobilières de leur région via une carte web permettant de visualiser ces informations.
 
-## Présentation
+Les données utilisées par ce projet sont fournie par l'**INSEE** sous forme de données open-source, de ce fait la portée de ce projet n'est que nationale (uniquement les villes de France).
 
-Ce projet à pour but de sensibiliser les utilisateurs aux informations démographiques et immobilières de leur région via une carte web permettant de visualiser ces informations.
+## Sommaire
 
-Ces informations proviennent de l'INSEE qui fournit des données open-source. Dans le cadre de ce projet nous utiliserons des données démographiques (nombre d'habitants, évolution de ce dernier, etc...) ainsi que différentes données immobilières (nombre de construction en cours, développement urbain, variation sur le prix de l'immobilier, etc...).
+- [**ACILIM** - Analyse des Constructions en cours et Influence sur l'Immobilier et la Mobilité](#acilim---analyse-des-constructions-en-cours-et-influence-sur-limmobilier-et-la-mobilité)
+  - [Introdcution](#introdcution)
+  - [Sommaire](#sommaire)
+  - [Fonctionnalités](#fonctionnalités)
+  - [Technologies](#technologies)
+  - [Installation](#installation)
+  - [Lancement](#lancement)
 
-## Installation de l'environnement de développement
+## Fonctionnalités
 
-* Installer PostgreSQL et pgAdmin pour gérer la base de données
-* Installer Apache pour héberger le site web en local
-* Installer l'extension PostGIS pour permettre la prise en charge des données spatiales
-* Exécuter les scripts SQL
+Ce projet fournit les fonctionnalités suivantes:
 
+- Visualisation des données démographies et immobilières sur une carte;
+  - Visualisation du nombre de construction dans une ville;
+  - Visualisation du prix moyen du mètre carré dans une ville;
+  - Visualisation du nombre d'habitant dans une ville;
+- Visualisation des contours des villes et des communes sur une carte;
+- Visualisation des statistiques générales d'une ville;
+- Recherche et sélection d'une ville;
 
-### Backlog
+## Technologies
 
-| ID 	| Description                                                                                                              	| Spécificités Techniques                                                                                    	|
-|----	|--------------------------------------------------------------------------------------------------------------------------	|------------------------------------------------------------------------------------------------------------	|
-| 1  	| En tant qu'utilisateur je veux pouvoir visionner une carte de la France                                                  	| Création d'un serveur en Php ou Javascript pour servir le produit                                          	|
-|    	|                                                                                                                          	| Utilisation de OpenStreetMap pour l'affichage de la carte et des points d'intérêts                         	|
-| 2  	| En tant qu'utilisateur je veux pouvoir accéder à toutes les données démographiques, immobilières et construction urbaine 	| Récupération des données des différentes sources d'informations opensource                                 	|
-|    	|                                                                                                                          	| Tri des données pertinentes au produits                                                                    	|
-|    	|                                                                                                                          	| Utilisation d'une base de données relationnelle pour stocker les informations                              	|
-| 3  	| En tant qu'utilisateur je veux pouvoir visionner les contours d'une ville sur la carte                                   	| Utilisation de OpenStreetMap pour la visualisation des données géographiques (QJS)                         	|
-| 4  	| En tant qu'utilisateur je veux pouvoir visionner les données des constructions en cours dans ma ville                    	| Utilisation de OpenStreetMap pour la visualisation des données géographiques (QJS)                         	|
-| 5  	| En tant qu'utilisateur je veux pouvoir visionner les données de l'évolution du marché de l'immobilier en France          	| Définition d'une fonction qui permet d'obtenir les chiffres concernant l'évolution du prix de l'immobilier 	|
-|    	|                                                                                                                          	| Définition d'une fonction permettant d'afficher les statistiques dans une section spécifique               	|
-| 6  	| En tant qu'utilisateur je veux pouvoir visonner les informations démographiques pour chaque ville                        	| Affichage d'une info-bulle qui affiche les informations de la ville                                        	|
-| 7  	| En tant qu'utilisateur je veux pouvoir connaitre le type de constructions en cours                                       	| Affichage d'une info-bulle qui affiche les informations de la ville                                        	|
-| 8  	| En tant qu'utilisateur je veux pouvoir connaitre le prix de l'immobilier par ville                                       	| Affichage d'une info-bulle qui affiche les informations de la ville                                        	|
-| 9  	| En tant qu'utilisateur je veux pouvoir visionner des statistiques générales d'une ville                                  	| Affichage d'une info-bulle qui affiche les informations de la ville                                        	|
+Ce projet utilise les technologies suivantes:
 
+- **Postgresql**
+- **Postgis**
+- **PgAdmin**
+- **Apache Stack** (PHP, HTML, CSS, Javascript)
 
-## Récap
+## Installation
 
-### Récap Semaine 1
+Pour utiliser ce projet, il faut installer les technologies présentées ci-dessus.
 
-Mise en place des outils de communication : discord
-Réflexion sur le sujet : objectifs principaux
-Création projet git
-Début des recherches de sources de données : problème avec données géométriques
+- Installation **Postgresql** [ici](https://www.postgresqltutorial.com/install-postgresql/);
+- Installation **Postgis** [ici](https://postgis.net/install/);
+- Installation **PgAdmin** [ici](https://www.pgadmin.org/download/);
+- Installation **Apache Stack** pour [Windows](https://www.wampserver.com/) et pour [Unix](https://www.tech2tech.fr/installation-de-lamp-sur-ubuntu-20-04/);
 
-### Récap Semaine 2
+## Lancement
 
-Globalement manque de temps (journées de cours très chargées) ou décalés selon les parcours
-Semaine exclusivement dédiée à l’acquisition de données
-Vérifications que les données peuvent être combinées (années similaires)
-Extraction des données souhaitées : tri des champs à garder
-Mise en place architecture d'accueil de la base de données : nécessite la gestion de données spatiales (PostGis)
-Vérification de la lecture des données spatiales
-
-### Récap Semaine 3 
-
-Création du squelette du site web avec affichage de la map. Finalisation du squelette de la base de données. Regroupage de toutes les données sur une meme BDD.
