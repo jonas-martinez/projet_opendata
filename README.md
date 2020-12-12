@@ -1,6 +1,6 @@
 # **ACILIM** - Analyse des Constructions en cours et Influence sur l'Immobilier et la Mobilité
 
-## Introdcution
+## Introduction
 
 Ce projet d'études à pour but de sensibiliser les utilisateurs aux informations démographiques et immobilières de leur région via une carte web permettant de visualiser ces informations.
 
